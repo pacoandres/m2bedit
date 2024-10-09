@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.gnu.itsmoroto.m2bedit.MainView">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu fx:id="filemenu" mnemonicParsing="false" text="File">
+                  <items>
+                      <MenuItem fx:id="newitem" mnemonicParsing="false" onAction="#onNew" text="New">
+                          <accelerator>
+                              <KeyCodeCombination alt="UP" code="n" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                          </accelerator>
+                      </MenuItem>
+                      <MenuItem fx:id="openitem" mnemonicParsing="false" onAction="#onOpen" text="Open">
+                          <accelerator>
+                              <KeyCodeCombination alt="UP" code="o" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                          </accelerator>
+                      </MenuItem>
+                      <MenuItem fx:id="saveitem" mnemonicParsing="true" onAction="#onSave" text="Save">
+                        <accelerator>
+                            <KeyCodeCombination alt="UP" code="s" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator>
+                      </MenuItem>
+                      <MenuItem fx:id="saveasitem" mnemonicParsing="true" onAction="#onSaveAs" text="Save as">
+                        <accelerator>
+                             <KeyCodeCombination alt="UP" code="s" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                        </accelerator>
+                      </MenuItem>
+                      <Menu fx:id="exportmenu" mnemonicParsing="false" text="Export">
+                          <MenuItem fx:id="utfitem" mnemonicParsing="false" onAction="#onUTF" text="UTF" />
+                          <MenuItem fx:id="brfitem" mnemonicParsing="false" onAction="#onBRF" text="brf" />
+                          <MenuItem fx:id="banitem" mnemonicParsing="false" onAction="#onBAN" text="ban" />
+                      </Menu>
+                  </items>
+          </Menu>
+            <Menu fx:id="viewmenu" mnemonicParsing="false" text="Ver">
+                <items>
+                    <MenuItem fx:id="previewitem" mnemonicParsing="false" onAction="#onPreview" text="Preview">
+                        <accelerator>
+                            <KeyCodeCombination alt="UP" code="w" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        </accelerator>
+                    </MenuItem>
+                </items>
+            </Menu>
+          <Menu fx:id="helpmenu" mnemonicParsing="false" text="Help">
+            <items>
+                <MenuItem fx:id="manualitem" mnemonicParsing="false" onAction="#onManual" text="Manual" />
+              <MenuItem fx:id="aboutitem" mnemonicParsing="false" onAction="#onAbout" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+
+
+</BorderPane>
