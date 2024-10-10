@@ -2,6 +2,7 @@ module org.gnu.itsmoroto.m2bedit {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
+    requires jdk.jsobject;
     requires kotlin.stdlib;
     requires mathcat4j.core;
     requires snuggletex.core;

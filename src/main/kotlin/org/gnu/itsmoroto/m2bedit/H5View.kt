@@ -1,5 +1,8 @@
 package org.gnu.itsmoroto.m2bedit
 
+import javafx.beans.value.ChangeListener
+import javafx.concurrent.Worker.State
+
 import javafx.event.EventHandler
 import javafx.scene.Scene
 import javafx.scene.layout.BorderPane
@@ -7,9 +10,8 @@ import javafx.scene.web.WebErrorEvent
 import javafx.stage.Stage
 import javafx.scene.web.WebView
 import javafx.stage.Modality
-import org.gnu.itsmoroto.m2bedit.M2BApp.Companion.mbrstrings
-import java.io.File
-import java.net.URI
+import netscape.javascript.JSObject
+
 
 class H5View (): Stage (), EventHandler<WebErrorEvent>{
     val mPanel = BorderPane ()
@@ -22,7 +24,7 @@ class H5View (): Stage (), EventHandler<WebErrorEvent>{
 
         mPanel.style = "-fx-padding: 10;"
         mPanel.center = mWView
-        mEngine.isJavaScriptEnabled = false
+        //mEngine.isJavaScriptEnabled = false //Commented as I can't find a way for back without javascript
         mEngine.onError = this
         scene = Scene (mPanel, 600.0, 400.0)
         initModality(Modality.APPLICATION_MODAL)
@@ -42,6 +44,14 @@ class H5View (): Stage (), EventHandler<WebErrorEvent>{
             //throw Exception ("Can't find manual files")
             return false
         }
+
+        mEngine.loadWorker.stateProperty().addListener(ChangeListener<State>{
+            ob, old, new ->
+            if (new == State.SUCCEEDED){
+                val w = mEngine.executeScript("window") as JSObject
+                w.setMember("eopener", eopener ())
+            }
+        }) //eopener.open opens url in external browser.
         mEngine.load(url.toExternalForm())
         return true
     }

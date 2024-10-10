@@ -1,10 +1,9 @@
 package org.gnu.itsmoroto.m2bedit
-//import org.gnu.itsmoroto.cminterface.KtInterface
 
-import com.sun.jna.StringArray
-import com.sun.jna.Structure
+
+
+
 import onl.mdw.mathcat4j.api.MathCat
-import onl.mdw.mathcat4j.api.MathCatJni
 import onl.mdw.mathcat4j.core.mathCAT
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -22,7 +21,7 @@ class MCConvert (rulesdir: String) {
 
         /*val directory = javaClass.getResource(rulesdir)
         mrulesdir = Paths.get(directory!!.toURI()).toFile().canonicalPath*/
-        mathCAT { (MathCat::setRulesDir) (rulesdir)}
+        mathCAT { (MathCat::setRulesDir) (mrulesdir)}
         mathCAT { (MathCat::setPreference) ("Language", "es")}
         mathCAT { (MathCat::setPreference) ("TTS", "none")}
         mathCAT { (MathCat::setPreference) ("BrailleCode", "CMU")}

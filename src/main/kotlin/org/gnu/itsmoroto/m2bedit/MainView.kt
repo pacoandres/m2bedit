@@ -79,7 +79,7 @@ class MainView {
         val test = TextPart (0, TextPart.TextTypes.Plain.id)
         test.findChilds()
         test.traceContent()*/
-        val stage = Stage();
+        val stage = Stage()
         val panel = BorderPane ()
         val scene = Scene(panel, 300.0, 200.0)
         val aboutText= TextArea ()
@@ -88,10 +88,10 @@ class MainView {
         //BorderPane.setMargin(aboutText, Insets (20.0,20.0,20.0,20.0))
         panel.style = "-fx-padding: 10;"
         aboutText.text = M2BApp.mbrstrings.getString("abouttext")
-        stage.scene = scene;
+        stage.scene = scene
         stage.title = M2BApp.mbrstrings.getString("about")
         stage.icons.add(M2BApp.mIcon)
-        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initModality(Modality.APPLICATION_MODAL)
         stage.show();
     }
 
@@ -185,6 +185,14 @@ class MainView {
     }
 
     fun onNew () {
+        val owdlg = Alert(Alert.AlertType.CONFIRMATION)
+        owdlg.title = M2BApp.mbrstrings.getString("newfile")
+        owdlg.headerText = owdlg.title
+        owdlg.contentText = M2BApp.mbrstrings.getString("newfilequestion")
+        owdlg.initOwner(editText.scene.window)
+        val res = owdlg.showAndWait().get()
+        if (res != ButtonType.OK)
+            return
         M2BApp.mcurrfilename = M2BApp.mbrstrings.getString("newfile")
         mnewfile = true
         editText.clear()
@@ -216,6 +224,9 @@ class MainView {
     }
 
     fun onManual (){
+        /*For changing java default language
+            -Duser.language=.... in the VM options.
+         */
         val preview = H5View ()
         if (!preview.setURL("/help/" + M2BApp.mlocale.language + "/index.html"))
             preview.setURL("/help/es/index.html")
