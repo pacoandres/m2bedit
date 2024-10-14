@@ -36,7 +36,7 @@ class H5View (): Stage (), EventHandler<WebErrorEvent>{
         mEngine.loadContent(html)
     }
 
-    fun setURL (uri: String): Boolean{
+    fun setURL (uri: String, mainView: MainView): Boolean{
         title = M2BApp.mappname + " " + "Manual"
 
         val url = javaClass.getResource(uri)
@@ -50,6 +50,7 @@ class H5View (): Stage (), EventHandler<WebErrorEvent>{
             if (new == State.SUCCEEDED){
                 val w = mEngine.executeScript("window") as JSObject
                 w.setMember("eopener", eopener ())
+                w.setMember("m2bedit", mainView)
             }
         }) //eopener.open opens url in external browser.
         mEngine.load(url.toExternalForm())
@@ -60,6 +61,11 @@ class H5View (): Stage (), EventHandler<WebErrorEvent>{
         if (error == null)
             return
         throw Exception (error.toString())
+    }
+
+    fun showHelp (){
+        initModality(Modality.NONE)
+        show()
     }
 
 }

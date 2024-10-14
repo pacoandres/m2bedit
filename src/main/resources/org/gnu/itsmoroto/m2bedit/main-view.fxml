@@ -52,6 +52,8 @@
             </Menu>
           <Menu fx:id="helpmenu" mnemonicParsing="false" text="Help">
             <items>
+                <MenuItem fx:id="louisinfoitem" mnemonicParsing="false" onAction="#onLouisInfo" text="table" />
+                <MenuItem fx:id="mathcatinfoitem" mnemonicParsing="false" onAction="#onMathCatInfo" text="table" />
                 <MenuItem fx:id="manualitem" mnemonicParsing="false" onAction="#onManual" text="Manual" />
               <MenuItem fx:id="aboutitem" mnemonicParsing="false" onAction="#onAbout" text="About" />
             </items>

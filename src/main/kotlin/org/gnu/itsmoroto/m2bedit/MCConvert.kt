@@ -32,12 +32,15 @@ class MCConvert (rulesdir: String) {
         getCodes()
     }
 
-    fun convert (s: String, mclang: String, mccode: String): String{ //Format <math>..</math>
+    fun setCodes (mclang: String, mccode: String){
+        mathCAT { (MathCat::setPreference) ("Language", mclang)}
+        mathCAT { (MathCat::setPreference) ("BrailleCode", mccode)}
+    }
+
+    fun convert (s: String): String{ //Format <math>..</math>
         if (s == "")
             return ""
         //inter.setMathml(s)
-        mathCAT { (MathCat::setPreference) ("Language", mclang)}
-        mathCAT { (MathCat::setPreference) ("BrailleCode", mccode)}
         mathCAT { (MathCat::setMathml) (s)}
         //return inter.getBraille("")
         return mathCAT { (MathCat::getBraille) ("")}

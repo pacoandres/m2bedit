@@ -3,130 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <title>Introducción de texto</title>
+
 </head>
 <body>
 <div>
-    <div style="float:left;margin-lef:10px;"><a href="javascript:history.back()">Atrás</a></div>
-    <div style="float:right; margin-right:10px;"><a href="index.html">Índice</a></div>
-</div>
-<div>
-    <h1>Introducción de texto.</h1>
-    <p>En la introducción de texto y matemáticas se utilizan los comandos de LaTex,
-        aunque restringidos por el formato Braille y el nivel de lectura que tiene el
-        alumnado de estos niveles.</p>
-    <h2>Comandos de formato de texto.</h2>
-    Actualmente solo están permitidas tres etiquetas de formato:
-    <ul>
-        <li>&bsol;textbf{<strong>texto en negrita</strong>}</li>
-        <li>&bsol;textit{<i>texto en cursiva</i>}</li>
-        <li>&bsol;underline{<u>texto subrayado</u>}</li>
-    </ul>
-    La interpretación de cada etiqueta depende de las reglas de codificación Braille
-    del idioma. Por ejemplo, en Braille castellano solo existe un tipo de resaltado,
-    con lo que los tres tipos de resaltado se traducen a este.
-    <h2>Comandos matemáticos</h2>
-    La introducción de comandos matemáticos se debe realizar dentro de un entorno
-    matemático, y hay dos maneras:
-    <ul>
-        <li>Encerrándolo entre símbolos de dolar ($ecuación$), con lo que queda alineado
-        con el resto del texto: $&bsol;frac{x+1}{x-1}$ = <math>
-                <mfrac>
-                    <mn>x+1</mn>
-                    <mn>x-1</mn>
-                </mfrac>
-            </math></li>
-        <li>Encerrándolo entre &bsol;[ y &bsol;], de manera que queda en una línea propia
-            independientemente de la posición que tenga en el texto.</li>
-    </ul>
-    Respecto a los comandos, no tiene mucho sentido hacer aquí un compendio de comandos
-    matemáticos de LaTex, ya que en internet hay una cantidad inmensa de documentación al
-    respecto. Aquí vamos a indicar los que consideramos más relevantes a nivel de secundaria:
-    <ul>
-        <li><strong>Potencia</strong>: $x^{n}$ = <math>
-            <mrow>
-                <msup>
-                    <mi>x</mi>
-                    <mrow>
-                        <mi>n</mi>
-                    </mrow>
-                </msup>
-            </mrow>
-        </math></li>
-        <li><strong>Subíndice</strong>: $x_{i}$ = <math>
-            <msub>
-                <mi>x</mi>
-                <mi>i</mi>
-            </msub>
-        </math></li>
-        <li><strong>Fracción</strong>: $&bsol;frac{a}{b}$ = <math>
-            <mfrac>
-                <mi>a</mi>
-                <mi>b</mi>
-            </mfrac>
-        </math></li>
-        <li><strong>Raíz cuadrada</strong>: $&bsol;sqrt{x+1}$ = <math>
-            <msqrt>
-                <mrow>
-                    <mi>x</mi>
-                    <mo>+</mo>
-                    <mn>1</mn>
-                </mrow>
-            </msqrt>
-        </math></li>
-        <li><strong>Raíz enésima</strong>: $&bsol;sqrt[n]{x+1}$ = <math>
-            <mroot>
-                <mrow>
-                    <mi>x</mi>
-                    <mo>+</mo>
-                    <mn>1</mn>
-                </mrow>
-                <mi>n</mi>
-            </mroot>
-        </math>
-        </li>
-        <li><strong>Vector</strong>: $&bsol;vec{v}$ = <math>
-            <mover>
-                <mi>v</mi>
-                <mo stretchy="false" style="transform:scale(0.75) translate(10%, 30%);">→</mo>
-            </mover>
-        </math></li>
-        <li><strong>Segmento</strong>: $&bsol;overline {AB}$ = <math>
-            <menclose notation="top" class="tml-overline">
-                <mrow>
-                    <mi>A</mi>
-                    <mi>B</mi>
-                </mrow>
-            </menclose>
-        </math>
-        </li>
-    </ul>
-    Con todo esto es fácil inferir que para escribir la fórmula de la ecuación de segundo grado
-    tenemos que hacer:
-    <p style="text-align:center;"><strong>$&bsol;frac{-b &bsol;pm &bsol;sqrt{b^2 - 4ac}{2a}$</strong> = <math>
-        <mfrac>
-            <mrow>
-                <mo lspace="0em" rspace="0em">−</mo>
-                <mi>b</mi>
-                <mo>±</mo>
-                <msqrt>
+    <div>
+        <div style="float:left;margin-left:10px;"><a href="javascript:history.back()">Atrás</a></div>
+        <div style="float:right; margin-right:10px;"><a href="index.html">Índice</a></div>
+    </div>
+    <div style="float:left;padding=10px;">
+        <h1>Introducción y traducción de texto.</h1>
+        <p>En la introducción de texto y matemáticas se utilizan los comandos de LaTex,
+            aunque restringidos por el formato Braille y el nivel de lectura que tiene el
+            alumnado de estos niveles.</p>
+        <h2>Comandos de formato de texto.</h2>
+        Actualmente solo están permitidos tres comandos de formato:
+        <ul>
+            <li>&bsol;textbf{<strong>texto en negrita</strong>}</li>
+            <li>&bsol;textit{<i>texto en cursiva</i>}</li>
+            <li>&bsol;underline{<u>texto subrayado</u>}</li>
+        </ul>
+        <p>La interpretación de cada comando depende de las reglas de codificación Braille
+        del idioma según se encuentran descritas en las tablas de la biblioteca <em>liblouis</em>,
+            de manera que en algunos idiomas esos comandos podrían no hacer nada o dar el mismo resultado.</p>
+        <p>Para conocer las posibilidades del lenguaje deseado, consultar la opción
+            <i><a href="javascript:m2bedit.onLouisInfo ()">Idiomas disponibles</a></i>
+        del menú <i>Ayuda</i>.</p>
+        <h2>Comandos matemáticos</h2>
+        La introducción de comandos matemáticos se debe realizar dentro de un entorno
+        matemático, y hay dos maneras:
+        <ul>
+            <li>Encerrándolo entre símbolos de dolar ($ecuación$), con lo que queda alineado
+                con el resto del texto: $&bsol;frac{x+1}{x-1}$ =
+                <math>
+                    <mfrac>
+                        <mn>x+1</mn>
+                        <mn>x-1</mn>
+                    </mfrac>
+                </math>
+            </li>
+            <li>Encerrándolo entre &bsol;[ y &bsol;], de manera que queda en una línea propia
+                independientemente de la posición que tenga en el texto.
+            </li>
+        </ul>
+        Respecto a los comandos, no tiene mucho sentido hacer aquí un compendio de comandos
+        matemáticos de LaTex, ya que en internet hay una cantidad inmensa de documentación al
+        respecto. Aquí vamos a indicar los que consideramos más relevantes a nivel de secundaria:
+        <ul>
+            <li><strong>Potencia</strong>: $x^{n}$ =
+                <math>
                     <mrow>
                         <msup>
-                            <mi>b</mi>
-                            <mn>2</mn>
+                            <mi>x</mi>
+                            <mrow>
+                                <mi>n</mi>
+                            </mrow>
                         </msup>
-                        <mo>−</mo>
-                        <mn>4</mn>
-                        <mi>a</mi>
-                        <mi>c</mi>
                     </mrow>
-                </msqrt>
-            </mrow>
-            <mrow>
-                <mn>2</mn>
-                <mi>a</mi>
-            </mrow>
-        </mfrac>
-    </math></p>
+                </math>
+            </li>
+            <li><strong>Subíndice</strong>: $x_{i}$ =
+                <math>
+                    <msub>
+                        <mi>x</mi>
+                        <mi>i</mi>
+                    </msub>
+                </math>
+            </li>
+            <li><strong>Fracción</strong>: $&bsol;frac{a}{b}$ =
+                <math>
+                    <mfrac>
+                        <mi>a</mi>
+                        <mi>b</mi>
+                    </mfrac>
+                </math>
+            </li>
+            <li><strong>Raíz cuadrada</strong>: $&bsol;sqrt{x+1}$ =
+                <math>
+                    <msqrt>
+                        <mrow>
+                            <mi>x</mi>
+                            <mo>+</mo>
+                            <mn>1</mn>
+                        </mrow>
+                    </msqrt>
+                </math>
+            </li>
+            <li><strong>Raíz enésima</strong>: $&bsol;sqrt[n]{x+1}$ =
+                <math>
+                    <mroot>
+                        <mrow>
+                            <mi>x</mi>
+                            <mo>+</mo>
+                            <mn>1</mn>
+                        </mrow>
+                        <mi>n</mi>
+                    </mroot>
+                </math>
+            </li>
+            <li><strong>Vector</strong>: $&bsol;vec{v}$ =
+                <math>
+                    <mover>
+                        <mi>v</mi>
+                        <mo stretchy="false" style="transform:scale(0.75) translate(10%, 30%);">→</mo>
+                    </mover>
+                </math>
+            </li>
+            <li><strong>Segmento</strong>: $&bsol;overline {AB}$ =
+                <math>
+                    <menclose notation="top" class="tml-overline">
+                        <mrow>
+                            <mi>A</mi>
+                            <mi>B</mi>
+                        </mrow>
+                    </menclose>
+                </math>
+            </li>
+        </ul>
+        Con todo esto es fácil inferir que para escribir la fórmula de la ecuación de segundo grado
+        tenemos que hacer:
+        <p style="text-align:center;"><strong>$&bsol;frac{-b &bsol;pm &bsol;sqrt{b^2 - 4ac}{2a}$</strong> =
+            <math>
+                <mfrac>
+                    <mrow>
+                        <mo lspace="0em" rspace="0em">−</mo>
+                        <mi>b</mi>
+                        <mo>±</mo>
+                        <msqrt>
+                            <mrow>
+                                <msup>
+                                    <mi>b</mi>
+                                    <mn>2</mn>
+                                </msup>
+                                <mo>−</mo>
+                                <mn>4</mn>
+                                <mi>a</mi>
+                                <mi>c</mi>
+                            </mrow>
+                        </msqrt>
+                    </mrow>
+                    <mrow>
+                        <mn>2</mn>
+                        <mi>a</mi>
+                    </mrow>
+                </mfrac>
+            </math>
+        </p>
+        <h2>Traducción de expresiones matemáticas</h2>
+        <p>La traducción de las expresiones matemáticas se realiza a mediante la biblioteca
+        <i>mathcat</i> que, al igual que ocurre con <i>liblouis</i>, tiene sus particularidades.</p>
+        <p>Los idiomas que se admiten dentro de las expresiones matemáticas, así como su codificacion
+        se pueden consultar a través de la opción
+            <i><a href="javascript:m2bedit.onMathCatInfo ()">Codificaciones matemáticas</a></i>
+            del menú <i>Ayuda</i>. </p>
+        <p>La codificación a utilizar debe ser la recomendada por la institución que realiza la
+        estandarización braille en su país.</p>
+    </div>
 </div>
 </body>
 </html>

@@ -35,6 +35,9 @@ class MainView {
     @FXML private lateinit var saveasitem: MenuItem
     @FXML private lateinit var newitem: MenuItem
     @FXML private lateinit var openitem: MenuItem
+    @FXML private lateinit var louisinfoitem: MenuItem
+    @FXML private lateinit var mathcatinfoitem: MenuItem
+
     private var mnewfile: Boolean = true
 
     companion object {
@@ -70,6 +73,8 @@ class MainView {
         saveasitem.text = M2BApp.mbrstrings.getString("saveas")
         newitem.text = M2BApp.mbrstrings.getString("new")
         openitem.text = M2BApp.mbrstrings.getString("open")
+        louisinfoitem.text = M2BApp.mbrstrings.getString("louisinfomenu")
+        mathcatinfoitem.text = M2BApp.mbrstrings.getString("mathcatinfo")
     }
 
     @FXML
@@ -228,9 +233,19 @@ class MainView {
             -Duser.language=.... in the VM options.
          */
         val preview = H5View ()
-        if (!preview.setURL("/help/" + M2BApp.mlocale.language + "/index.html"))
-            preview.setURL("/help/es/index.html")
+        if (!preview.setURL("/help/" + M2BApp.mlocale.language + "/index.html", this))
+            preview.setURL("/help/es/index.html", this)
         preview.initOwner(editText.scene.window)
-        preview.show()
+        preview.showHelp()
+    }
+
+    fun onLouisInfo (){
+        val info = LouisInfo (editText.scene.window)
+        info.show()
+    }
+
+    fun onMathCatInfo (){
+        val info = MathCatInfo (editText.scene.window)
+        info.show()
     }
 }

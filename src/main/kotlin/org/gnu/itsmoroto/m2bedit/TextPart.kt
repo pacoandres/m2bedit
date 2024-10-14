@@ -8,15 +8,15 @@ class UnclosedException (w: Int, l: TextPart.TextTypes):
     }
 
 class TextPart (start: Int, type: Int){
-    enum class TextTypes  (val id: Int, val start: String, val end: String){
-        //First 4 Matching liblouis typeforms
-        Plain (0, "", "\n"),
-        Italic (1, "\\textit{", "}"),
-        Underline (2, "\\underline{", "}"),
-        Bold (4, "\\textbf{", "}"),
-        Tex1 (8, "$", "$"),
-        Tex2 (16, "\\[", "\\]"),
-        FullLine(32, "", "\n")
+    enum class TextTypes  (val id: Int, val start: String, val end: String, val louisname: String){
+        //First 4 Matching liblouis typeforms, value and name.
+        Plain (0, "", "\n", "plain"),
+        Italic (1, "\\textit{", "}", "italic"),
+        Underline (2, "\\underline{", "}", "underline"),
+        Bold (4, "\\textbf{", "}", "bold"),
+        Tex1 (8, "$", "$", ""),
+        Tex2 (16, "\\[", "\\]", ""),
+        FullLine(32, "", "\n", "")
     }
 
     enum class OutFormat (val extension: String) {
@@ -167,20 +167,33 @@ class TextPart (start: Int, type: Int){
     val louistypes: Set<Int> = setOf(TextTypes.Plain.id, TextTypes.FullLine.id,
         TextTypes.Underline.id, TextTypes.Bold.id, TextTypes.Italic.id)
 
+    private fun escapeHTML(s: String):String {
+        val out = StringBuilder (16.coerceAtLeast(s.length));
+        for (c in s) {
+
+            if (c.code > 127 || c == '"' || c == '\'' || c == '<' || c == '>' || c == '&') {
+                out.append("&#");
+                out.append(c.code);
+                out.append(';');
+            } else {
+                out.append(c);
+            }
+        }
+        return out.toString();
+    }
 
     fun stringTranslate (s: String,
-                         louistable: String, mclang: String, mccode: String,
                          toFile: Boolean = true): String{
         var translated:String = String ()
         if (mtype in louistypes){
             if (toFile) {
-                translated += M2BApp.lConverter.convert(s, mtype, louistable)
+                translated += M2BApp.lConverter.convert(s, mtype)
                 if (mtype == TextTypes.FullLine.id) {
                     translated += "\n"
                 }
             }
             else {
-                translated = s
+                translated = escapeHTML(s)
                 if (mtype == TextTypes.FullLine.id)
                     translated += "</p>"
             }
@@ -196,10 +209,9 @@ class TextPart (start: Int, type: Int){
             if (toFile) {
                 if (mtype == TextTypes.Tex2.id)
                     translated += "\n" +
-                            M2BApp.mcConverter.convert(tmp, mclang, mccode) + "\n"
+                            M2BApp.mcConverter.convert(tmp) + "\n"
                 else
-                    translated += M2BApp.mcConverter.convert(tmp.replace('*', '·'),
-                    mclang, mccode)
+                    translated += M2BApp.mcConverter.convert(tmp.replace('*', '·'))
             }
             else {
                 if (mtype == TextTypes.Tex2.id)
@@ -233,29 +245,26 @@ class TextPart (start: Int, type: Int){
         return outarray.toByteArray()
     }
     @OptIn(ExperimentalUnsignedTypes::class)
-    fun <T> b2File (writer: (p: T)-> Unit, fmt: OutFormat,
-                    louistable: String, mclang: String, mccode: String){
+    fun <T> b2File (writer: (p: T)-> Unit, fmt: OutFormat){
         var position = mstart+moffset
         val text = MainView.editText.text
         var translate: String = ""
         var translated: String = ""
         for (child in mchilds){
             translate = text.substring(position, child.mstart)
-            translated = stringTranslate(translate, louistable,
-                mclang, mccode)
+            translated = stringTranslate(translate)
             if (fmt == OutFormat.UTF)
                 writer(translated as T)
             else{
                 writer(convertCodec(translated, fmt) as T)
             }
 
-            child.b2File(writer, fmt, louistable, mclang, mccode)
+            child.b2File(writer, fmt)
             position = child.mend + 1
         }
         if (position < mend){
             translate = text.substring(position, mend)
-            translated += stringTranslate(translate, louistable,
-                mclang, mccode)
+            translated += stringTranslate(translate)
             if (fmt == OutFormat.UTF)
                 writer(translated as T)
             else{
@@ -271,7 +280,7 @@ class TextPart (start: Int, type: Int){
         var translated: String = ""
         for (child in mchilds){
             translate = text.substring(position, child.mstart)
-            translated = stringTranslate(translate, "", "", "", false)
+            translated = stringTranslate(translate,  false)
             if ((htmlstring.toString().isEmpty() ||
                 htmlstring.endsWith("</p>")) && translated.isNotEmpty()
             )
@@ -283,7 +292,7 @@ class TextPart (start: Int, type: Int){
         }
         if (position < mend){
             translate = text.substring(position, mend)
-            translated += stringTranslate(translate, "", "", "", false)
+            translated += stringTranslate(translate, false)
             if ((htmlstring.toString().isEmpty() ||
                 htmlstring.endsWith("</p>")) && translated.isNotEmpty()
             )

@@ -6,126 +6,156 @@
 </head>
 <body>
 <div>
-    <div style="float:left;margin-lef:10px;"><a href="javascript:history.back()">Back</a></div>
-    <div style="float:right; margin-right:10px;"><a href="index.html">Contents</a></div>
-</div>
-<div>
-    <h1>Text input.</h1>
-    <p>For writing text and maths you must use LaTex commands. These commands are restricted
-    by the Braille code limitations and the skills of an average secondary level student</p>
-    <h2>Text format commands.</h2>
-    By now, only three format commands are available:
-    <ul>
-        <li>&bsol;textbf{<strong>bold text</strong>}</li>
-        <li>&bsol;textit{<i>italic text</i>}</li>
-        <li>&bsol;underline{<u>underlined text</u>}</li>
-    </ul>
-    Each command translation depends on the language Braille rules. For example,
-    in spanish Braille there's only one type of emphasis so the three commands are translated
-    to the same emphasis.
+    <div style="padding=10px;">
+        <div style="float:left;margin-lef:10px;"><a href="javascript:history.back()">Back</a></div>
+        <div style="float:right; margin-right:10px;"><a href="index.html">Contents</a></div>
+    </div>
+    <div style="float:left;padding=10px;">
+        <h1>Text input and translation.</h1>
+        <p>For writing text and maths you must use LaTex commands. These commands are restricted
+            by the Braille code limitations and the skills of an average secondary level student</p>
+        <h2>Text format commands.</h2>
+        By now, only three format commands are available:
+        <ul>
+            <li>&bsol;textbf{<strong>bold text</strong>}</li>
+            <li>&bsol;textit{<i>italic text</i>}</li>
+            <li>&bsol;underline{<u>underlined text</u>}</li>
+        </ul>
+        <p>Each command translation depends on the language braille rules as described in the tables
+        of the <em>liblouis</em> library. So, in some languages these commands can do nothing, or
+        may give the same result.</p>
+        <p>You can see the coding capabilities for the desired language in the menu option
+            <i><a href="javascript:m2bedit.onLouisInfo ()">Available languages</a></i></p> in the
+        <i>Help</i> menu.
 
-    <h2>Math commands.</h2>
-    For inserting math commands you should have a math environment, and it can be done by
-    two ways:
-    <ul>
-        <li>Enclosing the expression between dollar signs ($ecuation$). In this case the
-            math is aligned with the text : $&bsol;frac{x+1}{x-1}$ = <math>
-                <mfrac>
-                    <mn>x+1</mn>
-                    <mn>x-1</mn>
-                </mfrac>
-            </math></li>
-        <li>Enclosing between &bsol;[ and &bsol;]. This way writes the math in it's own line,
-            without anything else</li>
-    </ul>
-    About the LaTex math commands there's not so much to say about it.
-    There is a lot of documentation about them on the internet, so here we are
-    going to show the most significant for secondary level.
-    <ul>
-        <li><strong>Superscript</strong>: $x^{n}$ = <math>
-            <mrow>
-                <msup>
-                    <mi>x</mi>
-                    <mrow>
-                        <mi>n</mi>
-                    </mrow>
-                </msup>
-            </mrow>
-        </math></li>
-        <li><strong>Subscript</strong>: $x_{i}$ = <math>
-            <msub>
-                <mi>x</mi>
-                <mi>i</mi>
-            </msub>
-        </math></li>
-        <li><strong>Fraction</strong>: $&bsol;frac{a}{b}$ = <math>
-            <mfrac>
-                <mi>a</mi>
-                <mi>b</mi>
-            </mfrac>
-        </math></li>
-        <li><strong>Square root</strong>: $&bsol;sqrt{x+1}$ = <math>
-            <msqrt>
-                <mrow>
-                    <mi>x</mi>
-                    <mo>+</mo>
-                    <mn>1</mn>
-                </mrow>
-            </msqrt>
-        </math></li>
-        <li><strong>Root</strong>: $&bsol;sqrt[n]{x+1}$ = <math>
-            <mroot>
-                <mrow>
-                    <mi>x</mi>
-                    <mo>+</mo>
-                    <mn>1</mn>
-                </mrow>
-                <mi>n</mi>
-            </mroot>
-        </math>
-        </li>
-        <li><strong>Vector</strong>: $&bsol;vec{v}$ = <math>
-            <mover>
-                <mi>v</mi>
-                <mo stretchy="false" style="transform:scale(0.75) translate(10%, 30%);">→</mo>
-            </mover>
-        </math></li>
-        <li><strong>Segment</strong>: $&bsol;overline {AB}$ = <math>
-            <menclose notation="top" class="tml-overline">
-                <mrow>
-                    <mi>A</mi>
-                    <mi>B</mi>
-                </mrow>
-            </menclose>
-        </math>
-        </li>
-    </ul>
-    With these commands we can write the quadratic equation formula as:
-    <p style="text-align:center;"><strong>$&bsol;frac{-b &bsol;pm &bsol;sqrt{b^2 - 4ac}{2a}$</strong> = <math>
-        <mfrac>
-            <mrow>
-                <mo lspace="0em" rspace="0em">−</mo>
-                <mi>b</mi>
-                <mo>±</mo>
-                <msqrt>
+        <h2>Math commands.</h2>
+        For inserting math commands you should have a math environment, and it can be done by
+        two ways:
+        <ul>
+            <li>Enclosing the expression between dollar signs ($ecuation$). In this case the
+                math is aligned with the text : $&bsol;frac{x+1}{x-1}$ =
+                <math>
+                    <mfrac>
+                        <mn>x+1</mn>
+                        <mn>x-1</mn>
+                    </mfrac>
+                </math>
+            </li>
+            <li>Enclosing between &bsol;[ and &bsol;]. This way writes the math in it's own line,
+                without anything else
+            </li>
+        </ul>
+        About the LaTex math commands there's not so much to say about it.
+        There is a lot of documentation about them on the internet, so here we are
+        going to show the most significant for secondary level.
+        <ul>
+            <li><strong>Superscript</strong>: $x^{n}$ =
+                <math>
                     <mrow>
                         <msup>
-                            <mi>b</mi>
-                            <mn>2</mn>
+                            <mi>x</mi>
+                            <mrow>
+                                <mi>n</mi>
+                            </mrow>
                         </msup>
-                        <mo>−</mo>
-                        <mn>4</mn>
-                        <mi>a</mi>
-                        <mi>c</mi>
                     </mrow>
-                </msqrt>
-            </mrow>
-            <mrow>
-                <mn>2</mn>
-                <mi>a</mi>
-            </mrow>
-        </mfrac>
-    </math></p>
+                </math>
+            </li>
+            <li><strong>Subscript</strong>: $x_{i}$ =
+                <math>
+                    <msub>
+                        <mi>x</mi>
+                        <mi>i</mi>
+                    </msub>
+                </math>
+            </li>
+            <li><strong>Fraction</strong>: $&bsol;frac{a}{b}$ =
+                <math>
+                    <mfrac>
+                        <mi>a</mi>
+                        <mi>b</mi>
+                    </mfrac>
+                </math>
+            </li>
+            <li><strong>Square root</strong>: $&bsol;sqrt{x+1}$ =
+                <math>
+                    <msqrt>
+                        <mrow>
+                            <mi>x</mi>
+                            <mo>+</mo>
+                            <mn>1</mn>
+                        </mrow>
+                    </msqrt>
+                </math>
+            </li>
+            <li><strong>Root</strong>: $&bsol;sqrt[n]{x+1}$ =
+                <math>
+                    <mroot>
+                        <mrow>
+                            <mi>x</mi>
+                            <mo>+</mo>
+                            <mn>1</mn>
+                        </mrow>
+                        <mi>n</mi>
+                    </mroot>
+                </math>
+            </li>
+            <li><strong>Vector</strong>: $&bsol;vec{v}$ =
+                <math>
+                    <mover>
+                        <mi>v</mi>
+                        <mo stretchy="false" style="transform:scale(0.75) translate(10%, 30%);">→</mo>
+                    </mover>
+                </math>
+            </li>
+            <li><strong>Segment</strong>: $&bsol;overline {AB}$ =
+                <math>
+                    <menclose notation="top" class="tml-overline">
+                        <mrow>
+                            <mi>A</mi>
+                            <mi>B</mi>
+                        </mrow>
+                    </menclose>
+                </math>
+            </li>
+        </ul>
+        With these commands we can write the quadratic equation formula as:
+        <p style="text-align:center;"><strong>$&bsol;frac{-b &bsol;pm &bsol;sqrt{b^2 - 4ac}{2a}$</strong> =
+            <math>
+                <mfrac>
+                    <mrow>
+                        <mo lspace="0em" rspace="0em">−</mo>
+                        <mi>b</mi>
+                        <mo>±</mo>
+                        <msqrt>
+                            <mrow>
+                                <msup>
+                                    <mi>b</mi>
+                                    <mn>2</mn>
+                                </msup>
+                                <mo>−</mo>
+                                <mn>4</mn>
+                                <mi>a</mi>
+                                <mi>c</mi>
+                            </mrow>
+                        </msqrt>
+                    </mrow>
+                    <mrow>
+                        <mn>2</mn>
+                        <mi>a</mi>
+                    </mrow>
+                </mfrac>
+            </math>
+        </p>
+        <h2>Translation of Mathematical expressions</h2>
+        <p>For translating mathematical expressions the library <i>mathcat</i> is used.</p>
+        <p>The available languages inside mathematical expressions and the available coding for
+        these expressions can be seen at
+            <i><a href="javascript:m2bedit.onMathCatInfo ()">Math translations</a></i>
+        in the <i>Help menu</i></p>
+        <p>The encoding to be used must be the one recommended by the institution that
+            carries out Braille standardization in your country.</p>
+    </div>
 </div>
 </body>
 </html>

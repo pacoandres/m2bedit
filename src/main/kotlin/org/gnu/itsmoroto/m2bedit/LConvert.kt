@@ -6,7 +6,9 @@ import org.liblouis.Translator
 import org.liblouis.Typeform
 import java.io.File
 
+public class NoLouisTableException: Exception ("No Louis table defined"){
 
+}
 
 public class LConvert (path: String? = null) {
 
@@ -21,18 +23,53 @@ public class LConvert (path: String? = null) {
         }
         getLanguages()
     }
-    public fun convert (text: String, format: Int, table: String): String{
+
+    private var mtranslator: Translator? = null
+    private var mtypefomrs: Set<Typeform>? = null
+    public fun setTable (table: String){
+        mtranslator = Translator ("braille-patterns.cti,"+table)
+        if (mtranslator != null)
+            mtypefomrs = mtranslator?.supportedTypeforms
+    }
+    public fun getTypeformNames (): Array<String>{
+        val ret = Array<String> (mtypefomrs!!.size) {""}
+        var i = 0
+        for (t in mtypefomrs){
+            ret[i] = t.name
+            i++
+        }
+        return ret
+    }
+
+    private fun getTypeform (type: TextPart.TextTypes): Typeform? {
+        if (mtypefomrs != null) {
+            for (t in mtypefomrs){
+                if (t.name == type.louisname)
+                    return t
+            }
+        }
+        return null
+    }
+
+    val typestocheck: Set<TextPart.TextTypes> = setOf(TextPart.TextTypes.Italic,
+        TextPart.TextTypes.Underline, TextPart.TextTypes.Bold)
+    public fun convert (text: String, format: Int): String{
         //braille-patterns must be explicit or doesn't work
-        val t: Translator = Translator ("braille-patterns.cti,"+table)
+        var tmp: Typeform?=null
+        if (mtranslator == null){
+            throw NoLouisTableException ()
+            return ""
+        }
         val stringsize = text.codePoints().toArray().size
 
         var typeformcc = Typeform.PLAIN_TEXT
-        if ((format and TextPart.TextTypes.Italic.id) != 0)
-            typeformcc.add(Typeform.ITALIC_TEXT)
-        if ((format and TextPart.TextTypes.Bold.id) != 0)
-            typeformcc.add(Typeform.BOLD_TEXT)
-        if ((format and TextPart.TextTypes.Underline.id) != 0)
-            typeformcc.add(Typeform.UNDERLINED_TEXT)
+        for (tc in typestocheck){
+            if ((format and tc.id) != 0){
+                tmp = getTypeform(tc)
+                if (tmp != null)
+                    typeformcc.add(tmp)
+            }
+        }
 
         val tforms: Array<Typeform> = Array<Typeform>(stringsize){
             typeformcc}
@@ -40,7 +77,7 @@ public class LConvert (path: String? = null) {
 
         if (text == "")
             return ""
-        return t.translate(text, tforms, null, null, StandardDisplayTables.DEFAULT).braille
+        return mtranslator!!.translate(text, tforms, null, null, StandardDisplayTables.DEFAULT).braille
     }
 
     private fun getLanguages (){
@@ -59,14 +96,16 @@ public class LConvert (path: String? = null) {
             if (con == null || con != "no") //Only grade 1, uncontracted and regular unicode.
                 continue
 
+            val reg = table.info.get("region")
             //print(lan)
+            val desc = table.info.get("display-name")
             val dn = table.info.get("index-name")
             if (dn.isNotEmpty()) {
                 //print("\t" + dn)
-                mtables.add(LouisTables(lan, dn, table.identifier))
+                mtables.add(LouisTables(lan, dn, table.identifier, reg, desc))
             }
             else
-                mtables.add(LouisTables(lan, "", table.identifier))
+                mtables.add(LouisTables(lan, "", table.identifier, reg, desc))
             /*val tp = table.info.get("type")
             if (tp.isNotEmpty())
                 print ("\t" + tp)
@@ -77,7 +116,7 @@ public class LConvert (path: String? = null) {
                 print ("\t00")*/
             //println ("\t" + table.identifier)
         }
-        mtables = mtables.sortedWith(compareBy { it.LocaleName }).toList() as ArrayList<LouisTables>
+        mtables = mtables.sortedWith(compareBy { it.IndexName }).toList() as ArrayList<LouisTables>
         /*for (t in mtables){
             println (t.LocaleName + "\t" + t.TablePath)
         }*/

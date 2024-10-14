@@ -129,7 +129,7 @@ class CodeSelector (fmt: TextPart.OutFormat, owner: Window? = null): Stage () {
     private fun fillCombos (){
         var index = 0
         for (i in LConvert.mtables){
-            combotext.items.add(index, i.LocaleName)
+            combotext.items.add(index, i.IndexName)
             index++
         }
         index = 0
@@ -206,13 +206,12 @@ class CodeSelector (fmt: TextPart.OutFormat, owner: Window? = null): Stage () {
             try {
                 val text = TextPart(0, TextPart.TextTypes.Plain.id)
                 text.findChilds()
-
+                M2BApp.lConverter.setTable(ltable)
+                M2BApp.mcConverter.setCodes(mclang, mccode)
                 if (mfmt == TextPart.OutFormat.UTF) {
-                    text.b2File<String>(writer::writeString, mfmt
-                        , ltable, mclang, mccode)
+                    text.b2File<String>(writer::writeString, mfmt)
                 } else {
-                    text.b2File<ByteArray>(writer::writeBytes, mfmt
-                        , ltable, mclang, mccode)
+                    text.b2File<ByteArray>(writer::writeBytes, mfmt)
                 }
             }
             catch (e: LatexError){
