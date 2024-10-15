@@ -39,3 +39,6 @@ build/
 
 ### JFR profiler
 .profileconfig.json
+
+###Other
+githubtoken
