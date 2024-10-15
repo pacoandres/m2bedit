@@ -37,7 +37,7 @@ class MainView {
     @FXML private lateinit var openitem: MenuItem
     @FXML private lateinit var louisinfoitem: MenuItem
     @FXML private lateinit var mathcatinfoitem: MenuItem
-
+    @FXML private lateinit var manualitem: MenuItem
     private var mnewfile: Boolean = true
 
     companion object {
@@ -75,10 +75,12 @@ class MainView {
         openitem.text = M2BApp.mbrstrings.getString("open")
         louisinfoitem.text = M2BApp.mbrstrings.getString("louisinfomenu")
         mathcatinfoitem.text = M2BApp.mbrstrings.getString("mathcatinfo")
+        utfitem.text = M2BApp.mbrstrings.getString("utf")
+        manualitem.text = M2BApp.mbrstrings.getString("manual")
     }
 
-    @FXML
-    private fun onAbout (){
+
+    fun onAbout (){
         /*editText.text = "Esto es una \\textbf{prueba sencilla} para empezar.\n" +
                 "Con salto de línea y \$ecuacion\$"
         val test = TextPart (0, TextPart.TextTypes.Plain.id)
@@ -97,26 +99,26 @@ class MainView {
         stage.title = M2BApp.mbrstrings.getString("about")
         stage.icons.add(M2BApp.mIcon)
         stage.initModality(Modality.APPLICATION_MODAL)
-        stage.show();
+        stage.show()
     }
 
     private fun exportAs (fmt: TextPart.OutFormat){
         val cd = CodeSelector (fmt, editText.scene.window)
         cd.showAndWait()
     }
-    @FXML private fun onUTF (){
+    fun onUTF (){
         exportAs (TextPart.OutFormat.UTF)
     }
 
-    @FXML private fun onBRF (){
+    fun onBRF (){
         exportAs(TextPart.OutFormat.BRF)
     }
 
-    @FXML private fun onBAN (){
+    fun onBAN (){
         exportAs(TextPart.OutFormat.BAN)
     }
 
-    @FXML private fun onPreview (){
+    fun onPreview (){
         val preview = H5View ()
         /*val s = "<math display=\"inline\" xmlns=\"http://www.w3.org/1998/Math/MathML\">"+
         "<mrow><mi>x</mi><mo>=</mo><mfrac displaystyle=\"true\"><mrow><mo>−</mo><mi>b</mi>"+
@@ -155,7 +157,7 @@ class MainView {
     }
     fun onSaveAs (){
         val fc = FileChooser ()
-        var ext = "*.m2b"
+        var ext = "*." + FileManager.EXTENSION
         fc.extensionFilters.addAll(FileChooser.ExtensionFilter (
             M2BApp.mbrstrings.getString("m2bfile"), ext))
         if (M2BApp.mcurrdir != "")
@@ -166,7 +168,7 @@ class MainView {
             ext = tmp.substring(tmp.lastIndexOf('.') + 1)
             val newfile: String
             val fout: File
-            if (!f.absolutePath.endsWith("." + ext)) {
+            if (!f.absolutePath.endsWith(".$ext")) {
                 newfile = f.absolutePath + "." + ext
                 fout = File (newfile)
                 if (fout.exists()) {
@@ -204,7 +206,7 @@ class MainView {
     }
     fun onOpen (){
         val fc = FileChooser ()
-        var ext = "*.m2b"
+        var ext = "*." + FileManager.EXTENSION
         fc.extensionFilters.addAll(FileChooser.ExtensionFilter (
             M2BApp.mbrstrings.getString("m2bfile"), ext))
         if (M2BApp.mcurrdir != "")

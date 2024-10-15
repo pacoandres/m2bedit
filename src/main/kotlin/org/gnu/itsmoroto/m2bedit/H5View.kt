@@ -49,7 +49,7 @@ class H5View (): Stage (), EventHandler<WebErrorEvent>{
             ob, old, new ->
             if (new == State.SUCCEEDED){
                 val w = mEngine.executeScript("window") as JSObject
-                w.setMember("eopener", eopener ())
+                w.setMember("eopener", Eopener ())
                 w.setMember("m2bedit", mainView)
             }
         }) //eopener.open opens url in external browser.

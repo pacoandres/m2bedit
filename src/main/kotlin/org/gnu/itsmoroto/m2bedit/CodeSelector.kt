@@ -49,10 +49,10 @@ class CodeSelector (fmt: TextPart.OutFormat, owner: Window? = null): Stage () {
     val buttonok = Button ()
     val buttoncancel = Button ()
     private fun  createSpacer(): Node {
-        val spacer = Region();
+        val spacer = Region()
         // Make it always grow or shrink according to the available space
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        return spacer;
+        HBox.setHgrow(spacer, Priority.ALWAYS)
+        return spacer
     }
 
     val mfmt = fmt
@@ -73,7 +73,7 @@ class CodeSelector (fmt: TextPart.OutFormat, owner: Window? = null): Stage () {
         textpanel.padding = Insets (10.0)
         textpanel.hgap = 10.0
         textlabel.text = M2BApp.mbrstrings.getString("textcode")
-        textlabel.style = "-fx-font-weight: bold";
+        textlabel.style = "-fx-font-weight: bold"
         mLeftPanel.items.addAll(textlabel, textpanel)
         mLeftPanel.setDividerPositions(0.1)
 
@@ -88,7 +88,7 @@ class CodeSelector (fmt: TextPart.OutFormat, owner: Window? = null): Stage () {
         mathpanel.vgap = 20.0
         mathpanel.hgap = 10.0
         mathlabel.text = M2BApp.mbrstrings.getString("mathcode")
-        mathlabel.style = "-fx-font-weight: bold";
+        mathlabel.style = "-fx-font-weight: bold"
         mRightPanel.items.addAll(mathlabel, mathpanel)
         mLeftPanel.setDividerPositions(0.1)
 
@@ -128,15 +128,29 @@ class CodeSelector (fmt: TextPart.OutFormat, owner: Window? = null): Stage () {
     }
     private fun fillCombos (){
         var index = 0
+        val lang = System.getProperty("user.language")
+        val reg = System.getProperty("user.country")
+        val loc = "$lang-$reg"
+        var selindex = -1
         for (i in LConvert.mtables){
             combotext.items.add(index, i.IndexName)
+            if (i.Region in setOf(lang, loc))
+                selindex = index
             index++
         }
+        if (selindex != -1)
+            combotext.selectionModel.select (selindex)
+
         index = 0
+        selindex = -1
         for (i in MCConvert.mlanguages){
             comboml.items.add(index, i)
+            if (i == lang)
+                selindex = index
             index++
         }
+        if (selindex != -1)
+            comboml.selectionModel.select (selindex)
 
         index = 0
         for (i in MCConvert.mcodes){
@@ -179,7 +193,7 @@ class CodeSelector (fmt: TextPart.OutFormat, owner: Window? = null): Stage () {
             val tmp = fc.selectedExtensionFilter.extensions[0]
             ext = tmp.substring(tmp.lastIndexOf('.') + 1)
             val fout: File
-            if (!f.absolutePath.endsWith("." + ext)) {
+            if (!f.absolutePath.endsWith(".$ext")) {
                 val newfile = f.absolutePath + "." + ext
 
                 fout = File(newfile)

@@ -52,9 +52,9 @@ class TextPart (start: Int, type: Int){
         )
 
 
-        private val escape = '\\'
-        private val newline = '\n'
-        private val ecstart = '$'
+        private const val escape = '\\'
+        private const val newline = '\n'
+        private const val ecstart = '$'
         val htmlstring: StringBuilder = StringBuilder ("")
         infix fun from(id: Int): TextTypes? = TextTypes.entries.firstOrNull { it.id == id }
     }
@@ -137,18 +137,16 @@ class TextPart (start: Int, type: Int){
                     continue
                 nt.findChilds()
                 position = nt.mend + from(nt.mtype)!!.end.length
-                if (position < text.length && position >= mend)
-                    mend = text.indexOf(TextTypes.valueOf(mytype.name).end, position)
+                mend = if (position < text.length && position >= mend)
+                    text.indexOf(TextTypes.valueOf(mytype.name).end, position)
                 else
-                    mend = text.length
+                    text.length
                 mchilds.add(nt)
             }
         }
         M2BApp.mnodescount += mchilds.size
     }
-    fun getStart (): Int{
-        return mstart + moffset
-    }
+
     fun traceContent (){
         var position = mstart+moffset
         val text = MainView.editText.text
@@ -168,18 +166,18 @@ class TextPart (start: Int, type: Int){
         TextTypes.Underline.id, TextTypes.Bold.id, TextTypes.Italic.id)
 
     private fun escapeHTML(s: String):String {
-        val out = StringBuilder (16.coerceAtLeast(s.length));
+        val out = StringBuilder (16.coerceAtLeast(s.length))
         for (c in s) {
 
             if (c.code > 127 || c == '"' || c == '\'' || c == '<' || c == '>' || c == '&') {
-                out.append("&#");
-                out.append(c.code);
-                out.append(';');
+                out.append("&#")
+                out.append(c.code)
+                out.append(';')
             } else {
-                out.append(c);
+                out.append(c)
             }
         }
-        return out.toString();
+        return out.toString()
     }
 
     fun stringTranslate (s: String,
@@ -198,24 +196,24 @@ class TextPart (start: Int, type: Int){
                     translated += "</p>"
             }
         }
-        else{ //Its latex
-            val translate: String
-            if (s.endsWith('\\'))
-                translate = "$" + s.substring(0, s.length - 1) + "$"
+        else{
+            //Its latex
+            val translate: String = if (s.endsWith('\\'))
+                "$" + s.substring(0, s.length - 1) + "$"
             else
-                translate = "$$s$"
+                "$$s$"
 
             var tmp = M2BApp.mmlConverter.convert(this, translate)
             if (toFile) {
-                if (mtype == TextTypes.Tex2.id)
-                    translated += "\n" +
+                translated += if (mtype == TextTypes.Tex2.id)
+                    "\n" +
                             M2BApp.mcConverter.convert(tmp) + "\n"
                 else
-                    translated += M2BApp.mcConverter.convert(tmp.replace('*', '·'))
+                    M2BApp.mcConverter.convert(tmp.replace('*', '·'))
             }
             else {
                 if (mtype == TextTypes.Tex2.id)
-                    translated += "<p style=\"text-align: center;\">" + tmp + "</p>"
+                    translated += "<p style=\"text-align: center;\">$tmp</p>"
                 else
                     translated = tmp
             }

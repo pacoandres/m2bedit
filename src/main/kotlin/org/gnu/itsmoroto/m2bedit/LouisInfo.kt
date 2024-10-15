@@ -47,10 +47,10 @@ class LouisInfo (owner: Window? = null): Stage() {
 
     }*/
     private fun  createSpacer(): Node {
-        val spacer = Region();
+        val spacer = Region()
         // Make it always grow or shrink according to the available space
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        return spacer;
+        HBox.setHgrow(spacer, Priority.ALWAYS)
+        return spacer
     }
 
 
@@ -70,10 +70,10 @@ class LouisInfo (owner: Window? = null): Stage() {
 
         //Right panel
         desclabel.text = M2BApp.mbrstrings.getString("description")
-        desclabel.style= "-fx-font-weight: bold";
+        desclabel.style= "-fx-font-weight: bold"
 
         typeslabel.text = M2BApp.mbrstrings.getString("emphavail")
-        typeslabel.style= "-fx-font-weight: bold";
+        typeslabel.style= "-fx-font-weight: bold"
 
         buttonok.text = M2BApp.mbrstrings.getString("oklabel")
 
@@ -109,12 +109,12 @@ class LouisInfo (owner: Window? = null): Stage() {
     private fun fillList (){
         val lang = System.getProperty("user.language")
         val reg = System.getProperty("user.country")
+        val loc = "$lang-$reg"
         var index = -1
         var i = 0
         for (table in LConvert.mtables){
             tablesList.items.add(table.IndexName)
             //If table has no region, region has the locale.
-            val loc = lang +"-" + reg
             if (table.Region in setOf(lang, loc))
                 index = i
             i++
@@ -139,7 +139,7 @@ class LouisInfo (owner: Window? = null): Stage() {
         M2BApp.lConverter.setTable(LConvert.mtables[index].TablePath)
         val typeforms = M2BApp.lConverter.getTypeformNames()
         types.text = ""
-        if (typeforms.size == 0) {
+        if (typeforms.isEmpty()) {
             types.text = M2BApp.mbrstrings.getString("notypefomrs")
             return
         }

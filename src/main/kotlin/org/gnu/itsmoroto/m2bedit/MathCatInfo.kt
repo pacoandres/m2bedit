@@ -1,6 +1,5 @@
 package org.gnu.itsmoroto.m2bedit
 
-import javafx.beans.value.ChangeListener
 import javafx.scene.input.MouseEvent
 import javafx.event.EventHandler
 import javafx.geometry.Orientation
@@ -46,10 +45,10 @@ class MathCatInfo (owner: Window? = null): Stage() {
 
     }*/
     private fun  createSpacer(): Node {
-        val spacer = Region();
+        val spacer = Region()
         // Make it always grow or shrink according to the available space
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        return spacer;
+        HBox.setHgrow(spacer, Priority.ALWAYS)
+        return spacer
     }
 
 
@@ -66,11 +65,11 @@ class MathCatInfo (owner: Window? = null): Stage() {
         abstractlabel.text = M2BApp.mbrstrings.getString("mcexplain")
         //Left panel
         languageslabel.text = M2BApp.mbrstrings.getString("availablelangs")
-        languageslabel.style= "-fx-font-weight: bold";
+        languageslabel.style= "-fx-font-weight: bold"
 
         //Right panel
         codingslabel.text = M2BApp.mbrstrings.getString("codingslabel")
-        codingslabel.style= "-fx-font-weight: bold";
+        codingslabel.style= "-fx-font-weight: bold"
 
         buttonok.text = M2BApp.mbrstrings.getString("oklabel")
 

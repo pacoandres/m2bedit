@@ -6,11 +6,9 @@ import org.liblouis.Translator
 import org.liblouis.Typeform
 import java.io.File
 
-public class NoLouisTableException: Exception ("No Louis table defined"){
+class NoLouisTableException: Exception ("No Louis table defined")
 
-}
-
-public class LConvert (path: String? = null) {
+class LConvert (path: String? = null) {
 
     companion object {
         var mtables: ArrayList<LouisTables> = ArrayList<LouisTables>()
@@ -26,12 +24,12 @@ public class LConvert (path: String? = null) {
 
     private var mtranslator: Translator? = null
     private var mtypefomrs: Set<Typeform>? = null
-    public fun setTable (table: String){
-        mtranslator = Translator ("braille-patterns.cti,"+table)
+    fun setTable (table: String){
+        mtranslator = Translator ("braille-patterns.cti,$table")
         if (mtranslator != null)
             mtypefomrs = mtranslator?.supportedTypeforms
     }
-    public fun getTypeformNames (): Array<String>{
+    fun getTypeformNames (): Array<String>{
         val ret = Array<String> (mtypefomrs!!.size) {""}
         var i = 0
         for (t in mtypefomrs){
@@ -53,7 +51,7 @@ public class LConvert (path: String? = null) {
 
     val typestocheck: Set<TextPart.TextTypes> = setOf(TextPart.TextTypes.Italic,
         TextPart.TextTypes.Underline, TextPart.TextTypes.Bold)
-    public fun convert (text: String, format: Int): String{
+    fun convert (text: String, format: Int): String{
         //braille-patterns must be explicit or doesn't work
         var tmp: Typeform?=null
         if (mtranslator == null){

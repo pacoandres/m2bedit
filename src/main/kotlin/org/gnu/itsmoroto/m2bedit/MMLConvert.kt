@@ -9,12 +9,9 @@ class LatexError (node: TextPart): Exception (M2BApp.mbrstrings.getString("latex
 }
 
 class MMLConvert {
-    val engine: SnuggleEngine
-    val session: SnuggleSession
-    init {
-        engine = SnuggleEngine();
-        session = engine.createSession();
-    }
+    val engine: SnuggleEngine = SnuggleEngine()
+    val session: SnuggleSession = engine.createSession()
+
     fun convert (node: TextPart, s: String, withlabel: Boolean = false): String { //Format $....$
         if (s == "")
             return ""
@@ -26,14 +23,14 @@ class MMLConvert {
                 return ""
             val opt = XMLStringOutputOptions()
             opt.isIncludingXMLDeclaration = false
-            if (session.errors.size > 0)
+            if (session.errors.isNotEmpty())
                 throw LatexError (node)
 
             val out = session.buildXMLString(opt)
-            if (withlabel)
-                return out
+            return if (withlabel)
+                out
             else
-                return out.replace("xmlns=\"http://www.w3.org/1998/Math/MathML\"", "");
+                out.replace("xmlns=\"http://www.w3.org/1998/Math/MathML\"", "")
         }
         catch (e: Exception){
             throw e

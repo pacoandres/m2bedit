@@ -4,7 +4,7 @@ import java.io.File
 
 class FileManager {
     companion object {
-        val Extension = "m2b"
+        const val EXTENSION = "m2b"
         val MagicNumber: ByteArray = byteArrayOf(13, 2, 2, 6, 9, 12, 5)
 
 

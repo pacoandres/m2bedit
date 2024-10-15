@@ -12,7 +12,7 @@ class M2BFileWriter (f: File, fmt: TextPart.OutFormat){
         if (fmt == TextPart.OutFormat.UTF)
             fw = f.printWriter()
         else
-            sw = f.outputStream();
+            sw = f.outputStream()
     }
 
     fun writeBytes (b: ByteArray){
