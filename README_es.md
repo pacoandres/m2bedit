@@ -32,11 +32,12 @@ funciona en esta aplicación es gracias a ellas. Los errores que se produzcan so
 exclusivamente míos.
 
 # Compilación
-Si no has desarrollado nunca lo más sencillo es descargar la aplicación desde la sección de [releases](./releases), pero si
+Si no has desarrollado nunca lo más sencillo es descargar la aplicación desde la sección de 
+[releases](https://github.com/pacoandres/m2bedit/releases), pero si
 te sientes con ganas de aventura solo necesitas tener Maven para poder compilar la aplicación.
 
 Si tienes experiencia en desarrollo no tendrás problema para compilarla, solo hace falta Maven.
 
 # Problemas, mejoras, consejos, ...
 Si tienes algo que contar acerca de la aplicación puedes hacerlo en la
-[sección correspondiente](./issues)
+[sección correspondiente](https://github.com/pacoandres/m2bedit/issues)
